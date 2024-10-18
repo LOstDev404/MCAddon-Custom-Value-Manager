@@ -65,10 +65,10 @@ if main_option == 'Random Item Skyblock':
 
         if st.button('Get download link'):
             if ris_option == 'Normal':
-                source_directory = 'RIS'
+                source_directory = 'RISNVG'
                 output_file = f'Random Item Skyblock {delay} Seconds.mcaddon'
             elif ris_option == 'No Void Gen (Beta)':
-                source_directory = 'RISNVG'
+                source_directory = 'RIS'
                 output_file = f'Random Item Skyblock {delay} Seconds) | No Void Gen Beta 0.2.mcaddon'
 
             original_manifest_data, original_timer_data = modify_files_with_delay(source_directory, delay)
