@@ -62,8 +62,7 @@ if main_option == 'Random Item Skyblock':
 
     if ris_option:
         delay = st.number_input('How many seconds delay do you want? (Putting anything other then numbers will cause an error.)', min_value=1, step=1)
-        delay = st.slider('How many seconds delay do you want? (Only integers are allowed.)', min_value=1, max_value=60, step=1)
-
+        delay = sanitize_delay_value(delay)
         
         if st.button('Get download link'):
             if ris_option == 'Normal':
