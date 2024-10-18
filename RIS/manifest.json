@@ -7,7 +7,7 @@
 	},
 	"header": {
 		"name": "packname",
-		"description": "§l§cDO NOT PUT ON PRE-EXISTING WORLDS!\n§l§bInstructions:\n   §r§fPut this on a §l§6new world §r§fduring world creation. \n§l§bPack created by:\n   §r§aLOde404 / Grexzn",
+		"description": "packdescription",
 		"min_engine_version": [
 			1,
 			21,
