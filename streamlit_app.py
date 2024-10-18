@@ -9,68 +9,73 @@ import shutil
 def generate_uuids():
     return str(uuid.uuid4()), str(uuid.uuid4())
 
-def modify_files_with_delay(source_dir, delay, packname, description, startfile):
+def modify_files_with_delay(source_dir, delay, is_void_gen):
     manifest_path = os.path.join(source_dir, 'manifest.json')
+    tick_path = os.path.join(source_dir, 'functions', 'tick.json')
     timer_path = os.path.join(source_dir, 'functions', 'timer.mcfunction')
-    tick_path = os.path.join(source_dir, 'functions', 'tick.mcfunction')
     
-    # Generate new UUIDs
     uuid1, uuid2 = generate_uuids()
-
-    # Read and replace in manifest.json
     with open(manifest_path, 'r') as file:
         manifest_data = file.read()
     original_manifest_data = manifest_data
-    modified_manifest_data = manifest_data.replace('uuid1', uuid1).replace('uuid2', uuid2).replace('timedelay', str(delay)).replace('packname', packname).replace('packdescription', description)
     
-    # Read and replace in timer.mcfunction
+    # Modify the manifest.json based on the selected version
+    if is_void_gen:
+        modified_manifest_data = manifest_data.replace(
+            'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.2'
+        ).replace(
+            'packdescription', '\u00a7l\u00a7dNo Void Gen\n\u00a7l\u00a7bInstructions:\n   \u00a7r\u00a7fPut this on a \u00a7l\u00a76new world \u00a7r\u00a7fduring world creation. \n\u00a7l\u00a7bPack created by:\n   \u00a7r\u00a7aLOde404 / Grexzn'
+        )
+        start_replacement = 'randomstartnvg'
+    else:
+        modified_manifest_data = manifest_data.replace(
+            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.1'
+        ).replace(
+            'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS!\n§l§bInstructions:\n   §r§fPut this on a §l§6new world §r§fduring world creation. \n§l§bPack created by:\n   §r§aLOde404 / Grexzn'
+        )
+        start_replacement = 'randomstart'
+    
+    modified_manifest_data = modified_manifest_data.replace('uuid1', uuid1).replace('uuid2', uuid2).replace('timedelay', str(delay))
+
+    # Modify the tick.json to use the appropriate start file
+    with open(tick_path, 'r') as file:
+        tick_data = file.read()
+    original_tick_data = tick_data
+    modified_tick_data = tick_data.replace('startfile', start_replacement)
+
     with open(timer_path, 'r') as file:
         timer_data = file.read()
     modified_timer_data = timer_data.replace('timedelay', str(delay))
-    
-    # Read and replace in tick.mcfunction
-    with open(tick_path, 'r') as file:
-        tick_data = file.read()
-    modified_tick_data = tick_data.replace('startfile', startfile)
-    
-    # Write modified data back to files
+
+    # Write the changes to the files
     with open(manifest_path, 'w') as file:
         file.write(modified_manifest_data)
-    with open(timer_path, 'w') as file:
-        file.write(modified_timer_data)
     with open(tick_path, 'w') as file:
         file.write(modified_tick_data)
+    with open(timer_path, 'w') as file:
+        file.write(modified_timer_data)
 
-    return original_manifest_data, timer_data, tick_data
+    return original_manifest_data, original_tick_data, timer_data
 
-def revert_files(source_dir, original_manifest_data, original_timer_data, original_tick_data, backup_dimensions):
+def revert_files(source_dir, original_manifest_data, original_tick_data, original_timer_data):
     manifest_path = os.path.join(source_dir, 'manifest.json')
+    tick_path = os.path.join(source_dir, 'functions', 'tick.json')
     timer_path = os.path.join(source_dir, 'functions', 'timer.mcfunction')
-    tick_path = os.path.join(source_dir, 'functions', 'tick.mcfunction')
-    
-    # Revert changes in manifest.json
+
+    # Restore the original content to each file
     with open(manifest_path, 'w') as file:
         file.write(original_manifest_data)
-    
-    # Revert changes in timer.mcfunction
-    with open(timer_path, 'w') as file:
-        file.write(original_timer_data)
-
-    # Revert changes in tick.mcfunction
     with open(tick_path, 'w') as file:
         file.write(original_tick_data)
-
-    # Restore dimensions if backup exists
-    dimensions_path = os.path.join(source_dir, 'dimensions')
-    if backup_dimensions:
-        shutil.move(backup_dimensions, dimensions_path)
+    with open(timer_path, 'w') as file:
+        file.write(original_timer_data)
 
 def zip_files_to_mcaddon(source_dir, output_filename):
     with zipfile.ZipFile(output_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(source_dir):
             for file in files:
                 file_path = os.path.join(root, file)
-                arcname = os.path.relpath(file_path, os.path.dirname(source_dir))  # Exclude source_dir from path
+                arcname = os.path.relpath(file_path, os.path.dirname(source_dir))
                 zipf.write(file_path, arcname)
 
 def upload_to_fileio(file_path):
@@ -80,11 +85,43 @@ def upload_to_fileio(file_path):
     return response_data.get('link')
 
 st.title('`LOstDev404s` MCADDON Custom Value Manager')
-
 main_option = st.selectbox('Choose a pack:', ['Random Item Skyblock', 'Unfinished'])
 
 if main_option == 'Random Item Skyblock':
     ris_option = st.selectbox('Choose a version:', ['Normal', 'No Void Gen (Beta)'])
-    
     if ris_option:
-        delay = st.number_input('How many seconds delay do you want? (Only integers are allowed.)', min_value=1, step
+        delay = st.number_input('How many seconds delay do you want? (Only numbers allowed)', min_value=1, step=1)
+
+        if st.button('Get download link'):
+            source_directory = 'RIS'
+            if ris_option == 'Normal':
+                output_file = f'Random Item Skyblock {delay} Seconds.mcaddon'
+                is_void_gen = False
+            elif ris_option == 'No Void Gen (Beta)':
+                output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen Beta 0.2.mcaddon'
+                is_void_gen = True
+
+            # Modify files based on the delay and version
+            original_manifest_data, original_tick_data, original_timer_data = modify_files_with_delay(source_directory, delay, is_void_gen)
+
+            # Temporarily remove or restore dimensions for No Void Gen
+            dimensions_path = os.path.join(source_directory, 'dimensions')
+            if is_void_gen and os.path.exists(dimensions_path):
+                shutil.move(dimensions_path, dimensions_path + '_backup')
+            elif not is_void_gen and os.path.exists(dimensions_path + '_backup'):
+                shutil.move(dimensions_path + '_backup', dimensions_path)
+
+            # Create the .mcaddon file
+            zip_files_to_mcaddon(source_directory, output_file)
+            download_link = upload_to_fileio(output_file)
+            st.success(f'Download link: {download_link}')
+
+            # Restore the original files
+            revert_files(source_directory, original_manifest_data, original_tick_data, original_timer_data)
+            
+            # Restore dimensions folder if it was removed
+            if os.path.exists(dimensions_path + '_backup'):
+                shutil.move(dimensions_path + '_backup', dimensions_path)
+
+            # Clean up the created .mcaddon file
+            os.remove(output_file)
