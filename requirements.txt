@@ -1,6 +1,1 @@
 streamlit
-requests
-zipfile
-json
-os
-uuid
