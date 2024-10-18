@@ -3,3 +3,4 @@ requests
 zipfile
 json
 os
+uuid
