@@ -19,7 +19,6 @@ def modify_files_with_delay(source_dir, delay, is_void_gen):
         manifest_data = file.read()
     original_manifest_data = manifest_data
     
-    # Modify the manifest.json based on the selected version
     if is_void_gen:
         modified_manifest_data = manifest_data.replace(
             'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.2'
@@ -37,7 +36,6 @@ def modify_files_with_delay(source_dir, delay, is_void_gen):
     
     modified_manifest_data = modified_manifest_data.replace('uuid1', uuid1).replace('uuid2', uuid2).replace('timedelay', str(delay))
 
-    # Modify the tick.json to use the appropriate start file
     with open(tick_path, 'r') as file:
         tick_data = file.read()
     original_tick_data = tick_data
@@ -47,7 +45,6 @@ def modify_files_with_delay(source_dir, delay, is_void_gen):
         timer_data = file.read()
     modified_timer_data = timer_data.replace('timedelay', str(delay))
 
-    # Write the changes to the files
     with open(manifest_path, 'w') as file:
         file.write(modified_manifest_data)
     with open(tick_path, 'w') as file:
@@ -62,7 +59,6 @@ def revert_files(source_dir, original_manifest_data, original_tick_data, origina
     tick_path = os.path.join(source_dir, 'functions', 'tick.json')
     timer_path = os.path.join(source_dir, 'functions', 'timer.mcfunction')
 
-    # Restore the original content to each file
     with open(manifest_path, 'w') as file:
         file.write(original_manifest_data)
     with open(tick_path, 'w') as file:
@@ -101,27 +97,21 @@ if main_option == 'Random Item Skyblock':
                 output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen Beta 0.2.mcaddon'
                 is_void_gen = True
 
-            # Modify files based on the delay and version
             original_manifest_data, original_tick_data, original_timer_data = modify_files_with_delay(source_directory, delay, is_void_gen)
 
-            # Temporarily remove or restore dimensions for No Void Gen
             dimensions_path = os.path.join(source_directory, 'dimensions')
             if is_void_gen and os.path.exists(dimensions_path):
                 shutil.move(dimensions_path, dimensions_path + '_backup')
             elif not is_void_gen and os.path.exists(dimensions_path + '_backup'):
                 shutil.move(dimensions_path + '_backup', dimensions_path)
 
-            # Create the .mcaddon file
             zip_files_to_mcaddon(source_directory, output_file)
             download_link = upload_to_fileio(output_file)
             st.success(f'Download link: {download_link}')
 
-            # Restore the original files
             revert_files(source_directory, original_manifest_data, original_tick_data, original_timer_data)
             
-            # Restore dimensions folder if it was removed
             if os.path.exists(dimensions_path + '_backup'):
                 shutil.move(dimensions_path + '_backup', dimensions_path)
 
-            # Clean up the created .mcaddon file
             os.remove(output_file)
