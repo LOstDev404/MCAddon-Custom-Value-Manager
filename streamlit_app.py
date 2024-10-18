@@ -122,8 +122,3 @@ if main_option == 'Random Item Skyblock':
             
             # Delete the .mcaddon file
             os.remove(output_file)
-
-
-            revert_files(source_directory, original_manifest_data, original_timer_data)
-
-            os.remove(output_file)
