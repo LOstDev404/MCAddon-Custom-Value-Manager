@@ -1,0 +1,34 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"LD404"
+		]
+	},
+	"header": {
+		"name": "Random Item Skyblock (5 Seconds)",
+		"description": "§l§cDO NOT PUT ON PRE-EXISTING WORLDS!\n§l§bInstructions:\n   §r§fPut this on a §l§6new world §r§fduring world creation. \n§l§bPack created by:\n   §r§aLOde404 / Grexzn",
+		"min_engine_version": [
+			1,
+			21,
+			0
+		],
+		"uuid": "bfa8ead9-98c0-40fb-867d-760512bb26eb",
+		"version": [
+			1,
+			0,
+			0
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "31cd3baa-cc16-41b0-aa97-2b13488055f1",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}
