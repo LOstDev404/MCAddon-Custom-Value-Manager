@@ -1,1 +1,0 @@
-execute at @a[scores={random=865}] run give @p kelp

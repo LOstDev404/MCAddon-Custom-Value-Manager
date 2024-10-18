@@ -1,1 +1,0 @@
-execute at @a[scores={random=1122}] run give @p undyed_shulker_box
