@@ -44,7 +44,7 @@ def zip_files_to_mcaddon(source_dir, output_filename):
         for root, dirs, files in os.walk(source_dir):
             for file in files:
                 file_path = os.path.join(root, file)
-                arcname = os.path.relpath(file_path, os.path.dirname(source_dir))  # Exclude source_dir from path
+                arcname = os.path.relpath(file_path, os.path.dirname(source_dir))  
                 zipf.write(file_path, arcname)
 
 def upload_to_fileio(file_path):
