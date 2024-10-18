@@ -9,7 +9,7 @@ import shutil
 def generate_uuids():
     return str(uuid.uuid4()), str(uuid.uuid4())
 
-def modify_files_with_delay(source_dir, delay, startfile):
+def modify_files_with_delay(source_dir, delay, startfile, packname):
     manifest_path = os.path.join(source_dir, 'manifest.json')
     timer_path = os.path.join(source_dir, 'functions', 'timer.mcfunction')
     tick_path = os.path.join(source_dir, 'functions', 'tick.json')
@@ -21,7 +21,7 @@ def modify_files_with_delay(source_dir, delay, startfile):
     with open(manifest_path, 'r') as file:
         manifest_data = file.read()
     original_manifest_data = manifest_data
-    modified_manifest_data = manifest_data.replace('uuid1', uuid1).replace('uuid2', uuid2).replace('timedelay', str(delay))
+    modified_manifest_data = manifest_data.replace('uuid1', uuid1).replace('uuid2', uuid2).replace('timedelay', str(delay)).replace('packname', packname)
     
     # Read and replace in timer.mcfunction
     with open(timer_path, 'r') as file:
@@ -98,6 +98,7 @@ if main_option == 'Random Item Skyblock':
             output_file = f'Random Item Skyblock {delay} Seconds.mcaddon'
             startfile = 'randomstart'
             backup_dimensions = None
+            packname = f'Random Item Skyblock ({delay} Seconds) | 1.1'
             
             if ris_option == 'No Void Gen (Beta)':
                 startfile = 'randomstartnvg'
@@ -105,20 +106,7 @@ if main_option == 'Random Item Skyblock':
                 backup_dimensions = dimensions_path + '_backup'
                 if os.path.exists(dimensions_path):
                     shutil.move(dimensions_path, backup_dimensions)
+                packname = f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.2'
 
             # Modify files with delay
-            original_manifest_data, original_timer_data, original_tick_data = modify_files_with_delay(source_directory, delay, startfile)
-            
-            # Zip the files
-            zip_files_to_mcaddon(source_directory, output_file)
-            
-            # Upload and get download link
-            download_link = upload_to_fileio(output_file)
-            st.success('Done!')
-            st.write(f'Download link: {download_link}')
-            
-            # Revert changes
-            revert_files(source_directory, original_manifest_data, original_timer_data, original_tick_data, backup_dimensions)
-            
-            # Delete the .mcaddon file
-            os.remove(output_file)
+            original_manifest_data, original_timer
