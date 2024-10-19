@@ -118,5 +118,5 @@ if main_option == 'Random Item Skyblock':
             os.remove(output_file)
 
 if main_option == '-Changelogs-':
-    st.write('`Addon Manager | 0.2`')
-    st.success('Added Changelogs')
+    st.markdown('**Addon Manager | 0.2:**')
+    st.markdown("- Added changelogs")
