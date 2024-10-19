@@ -89,7 +89,7 @@ main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '
 if main_option == 'Random Item Skyblock':
     ris_option = st.selectbox('Choose a version:', ['Normal', 'No Void Gen (Beta)'])
     if ris_option:
-        delay = st.number_input('How many seconds delay do you want? (Only numbers allowed)', min_value=1, step=1)
+        delay = st.number_input('How many seconds delay do you want? (Only put numbers):', min_value=1, step=1)
 
         if st.button('Get download link'):
             source_directory = 'RIS'
