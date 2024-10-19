@@ -118,5 +118,5 @@ if main_option == 'Random Item Skyblock':
             os.remove(output_file)
 
 if main_option == 'Changelogs':
-    st.success('Writer 0.2')
-    st.write('Added Changelogs')
+    st.write('Writer 0.2')
+    st.success('Added Changelogs')
