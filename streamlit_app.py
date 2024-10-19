@@ -80,8 +80,9 @@ def upload_to_fileio(file_path):
     response_data = response.json()
     return response_data.get('link')
 #---------------------------------------- UI Starts Here ----------------------------------------
+st.write('Made by `LOstDev404`')
 st.title('MCADDON Custom Value Manager')
-st.subheader('`LOstDev404`')
+
 main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '-Changelogs-'])
 
 if main_option == 'Random Item Skyblock':
@@ -118,5 +119,5 @@ if main_option == 'Random Item Skyblock':
             os.remove(output_file)
 
 if main_option == '-Changelogs-':
-    st.markdown("## **Addon Manager | 0.2:**")
+    st.markdown("## **`Addon Manager | 0.2:`**")
     st.markdown("- Added changelogs")
