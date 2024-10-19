@@ -82,7 +82,7 @@ def upload_to_fileio(file_path):
 
 st.title('MCADDON Custom Value Manager')
 st.subheader('`LOstDev404`')
-main_option = st.selectbox('Choose a pack:', ['Random Item Skyblock', 'No more packs currently...'])
+main_option = st.selectbox('Choose a pack:', ['Random Item Skyblock', 'Changelogs'])
 
 if main_option == 'Random Item Skyblock':
     ris_option = st.selectbox('Choose a version:', ['Normal', 'No Void Gen (Beta)'])
@@ -116,3 +116,6 @@ if main_option == 'Random Item Skyblock':
                 shutil.move(dimensions_path + '_disabled', dimensions_path)
 
             os.remove(output_file)
+
+if main_option == 'Changelogs':
+    st.write('e')
