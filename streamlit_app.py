@@ -101,9 +101,9 @@ if main_option == 'Random Item Skyblock':
 
             dimensions_path = os.path.join(source_directory, 'dimensions')
             if is_void_gen and os.path.exists(dimensions_path):
-                shutil.move(dimensions_path, dimensions_path + '_backup')
-            elif not is_void_gen and os.path.exists(dimensions_path + '_backup'):
-                shutil.move(dimensions_path + '_backup', dimensions_path)
+                shutil.move(dimensions_path, dimensions_path + '_disabled')
+            elif not is_void_gen and os.path.exists(dimensions_path + '_disabled'):
+                shutil.move(dimensions_path + '_disabled', dimensions_path)
 
             zip_files_to_mcaddon(source_directory, output_file)
             download_link = upload_to_fileio(output_file)
@@ -111,7 +111,7 @@ if main_option == 'Random Item Skyblock':
 
             revert_files(source_directory, original_manifest_data, original_tick_data, original_timer_data)
             
-            if os.path.exists(dimensions_path + '_backup'):
-                shutil.move(dimensions_path + '_backup', dimensions_path)
+            if os.path.exists(dimensions_path + '_disabled'):
+                shutil.move(dimensions_path + '_disabled', dimensions_path)
 
             os.remove(output_file)
