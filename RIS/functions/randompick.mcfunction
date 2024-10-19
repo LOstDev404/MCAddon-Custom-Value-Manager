@@ -1,4 +1,4 @@
-scoreboard players random @s random 1 1111
+scoreboard players random @s random 1 1149
 execute at @s[scores={random=1}] run give @s acacia_boat
 execute at @s[scores={random=2}] run give @s acacia_button
 execute at @s[scores={random=3}] run give @s acacia_chest_boat
@@ -1086,14 +1086,14 @@ execute at @s[scores={random=1084}] run give @s skull 1 4
 execute at @s[scores={random=1085}] run give @s skull 1 5
 execute as @s[scores={random=1086}] run function variants/runbooks
 execute as @s[scores={random=1087}] run function variants/runbooks
-execute as @s[scores={random=1088}] run function variants/runeggs
-execute as @s[scores={random=1089}] run function variants/runeggs
+execute as @s[scores={random=1088}] run function variants/runpotions
+execute as @s[scores={random=1089}] run function variants/runpotions
 execute as @s[scores={random=1090}] run function variants/runpotions
 execute as @s[scores={random=1091}] run function variants/runpotions
 execute as @s[scores={random=1092}] run function variants/runpotions
 execute as @s[scores={random=1093}] run function variants/runpotions
-execute as @s[scores={random=1094}] run function variants/runpotions
-execute as @s[scores={random=1095}] run function variants/runpotions
+execute as @s[scores={random=1094}] run function variants/runcopper
+execute as @s[scores={random=1095}] run function variants/runcopper
 execute as @s[scores={random=1096}] run function variants/runcopper
 execute as @s[scores={random=1097}] run function variants/runcopper
 execute as @s[scores={random=1098}] run function variants/runcopper
@@ -1108,5 +1108,43 @@ execute as @s[scores={random=1106}] run function variants/runcopper
 execute as @s[scores={random=1107}] run function variants/runcopper
 execute as @s[scores={random=1108}] run function variants/runcopper
 execute as @s[scores={random=1109}] run function variants/runcopper
-execute as @s[scores={random=1110}] run function variants/runcopper
-execute as @s[scores={random=1111}] run function variants/runcopper
+execute as @s[scores={random=1110}] run function variants/runeggs
+execute as @s[scores={random=1111}] run function variants/runeggs
+execute as @s[scores={random=1112}] run function variants/runeggs
+execute as @s[scores={random=1113}] run function variants/runeggs
+execute as @s[scores={random=1114}] run function variants/runeggs
+execute as @s[scores={random=1115}] run function variants/runeggs
+execute as @s[scores={random=1116}] run function variants/runeggs
+execute as @s[scores={random=1117}] run function variants/runeggs
+execute as @s[scores={random=1118}] run function variants/runeggs
+execute as @s[scores={random=1119}] run function variants/runeggs
+execute as @s[scores={random=1120}] run function variants/runeggs
+execute as @s[scores={random=1121}] run function variants/runeggs
+execute as @s[scores={random=1122}] run function variants/runeggs
+execute as @s[scores={random=1123}] run function variants/runeggs
+execute as @s[scores={random=1124}] run function variants/runeggs
+execute as @s[scores={random=1125}] run function variants/runeggs
+execute as @s[scores={random=1126}] run function variants/runeggs
+execute as @s[scores={random=1127}] run function variants/runeggs
+execute as @s[scores={random=1128}] run function variants/runeggs
+execute as @s[scores={random=1129}] run function variants/runeggs
+execute as @s[scores={random=1130}] run function variants/runeggs
+execute as @s[scores={random=1131}] run function variants/runeggs
+execute as @s[scores={random=1132}] run function variants/runeggs
+execute as @s[scores={random=1133}] run function variants/runeggs
+execute as @s[scores={random=1134}] run function variants/runeggs
+execute as @s[scores={random=1135}] run function variants/runeggs
+execute as @s[scores={random=1136}] run function variants/runeggs
+execute as @s[scores={random=1137}] run function variants/runeggs
+execute as @s[scores={random=1138}] run function variants/runeggs
+execute as @s[scores={random=1139}] run function variants/runeggs
+execute as @s[scores={random=1140}] run function variants/runeggs
+execute as @s[scores={random=1141}] run function variants/runeggs
+execute as @s[scores={random=1142}] run function variants/runeggs
+execute as @s[scores={random=1143}] run function variants/runeggs
+execute as @s[scores={random=1144}] run function variants/runeggs
+execute as @s[scores={random=1145}] run function variants/runeggs
+execute as @s[scores={random=1146}] run function variants/runeggs
+execute as @s[scores={random=1147}] run function variants/runeggs
+execute as @s[scores={random=1148}] run function variants/runeggs
+execute as @s[scores={random=1149}] run function variants/runeggs
