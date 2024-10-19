@@ -120,5 +120,5 @@ if main_option == 'Random Item Skyblock':
             os.remove(output_file)
 
 if main_option == '-Changelogs-':
-    st.markdown("## **`Addon Manager | 0.2:`**")
+    st.markdown("## **`Addon Manager | 0.2`:**")
     st.markdown("- Added changelogs\n - Date: *10/19/2024*")
