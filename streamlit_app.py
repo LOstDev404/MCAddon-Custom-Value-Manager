@@ -121,4 +121,4 @@ if main_option == 'Random Item Skyblock':
 
 if main_option == '-Changelogs-':
     st.markdown("## **`Addon Manager | 0.2:`**")
-    st.markdown("- Added changelogs - Date: *10/19/2024*")
+    st.markdown("- Added changelogs - \nDate: \n   *10/19/2024*")
