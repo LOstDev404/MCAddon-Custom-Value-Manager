@@ -80,7 +80,8 @@ def upload_to_fileio(file_path):
     response_data = response.json()
     return response_data.get('link')
 
-st.title('`LOstDev404s` MCADDON Custom Value Manager')
+st.title('MCADDON Custom Value Manager')
+st.subtitle('`LOstDev404`')
 main_option = st.selectbox('Choose a pack:', ['Random Item Skyblock', 'Unfinished'])
 
 if main_option == 'Random Item Skyblock':
