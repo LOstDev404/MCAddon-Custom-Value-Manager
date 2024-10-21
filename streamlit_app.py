@@ -7,7 +7,7 @@ import json
 import shutil
 st.set_page_config(
     page_title="MCAddon Manager",
-    page_icon="mcaddon-logo.ico
+    page_icon="mcaddon-logo.ico"
 )
 def generate_uuids():
     return str(uuid.uuid4()), str(uuid.uuid4())
