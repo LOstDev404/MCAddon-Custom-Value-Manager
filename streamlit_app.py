@@ -5,7 +5,9 @@ import streamlit as st
 import uuid
 import json
 import shutil
-
+st.beta_set_page_config(
+    page_title="MCAddon Manager"
+)
 def generate_uuids():
     return str(uuid.uuid4()), str(uuid.uuid4())
 
@@ -80,9 +82,7 @@ def upload_to_fileio(file_path):
     response_data = response.json()
     return response_data.get('link')
 #---------------------------------------- UI Starts Here ----------------------------------------
-st.beta_set_page_config(
-    page_title="MCAddon Manager"
-)
+
 st.title('MCADDON Custom Value Manager')
 st.write('**Made by `LOstDev404`**')
 
