@@ -23,14 +23,14 @@ def modify_files_with_delay(source_dir, delay, is_void_gen):
         modified_manifest_data = manifest_data.replace(
             'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.2'
         ).replace(
-            'packdescription', '\u00a7l\u00a7dNo Void Gen\n\u00a7l\u00a7bInstructions:\n   \u00a7r\u00a7fPut this on a \u00a7l\u00a76new world \u00a7r\u00a7fduring world creation. \n\u00a7l\u00a7bPack created by:\n   \u00a7r\u00a7aLOde404 / Grexzn'
+            'packdescription', '§l§dNo Void Gen §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstartnvg'
     else:
         modified_manifest_data = manifest_data.replace(
             'packname', f'Random Item Skyblock ({delay} Seconds) | 1.1'
         ).replace(
-            'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS!\n§l§bInstructions:\n   §r§fPut this on a §l§6new world §r§fduring world creation. \n§l§bPack created by:\n   §r§aLOde404 / Grexzn'
+            'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstart'
     
