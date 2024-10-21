@@ -124,7 +124,7 @@ if main_option == 'Random Item Skyblock':
 
 if main_option == '-Changelogs-':
     st.markdown("## **`Addon Manager | 0.13`:**")
-    st.markdown("- Fixed a formatting issue in Random Item Skybock's 'manifest.json' (in the pack description) that was causing the pack to not work on realms.\nM - Made the web icon have MCAddon logo, and MCAddon Manager text.\n - the Date: *10/20/2024*")
+    st.markdown("- Fixed a formatting issue in Random Item Skybock's 'manifest.json' (in the pack description) that was causing the pack to not work on realms.\n - Made the web icon have MCAddon logo, and MCAddon Manager text.\n - Date: *10/20/2024*")
     st.write("--------------------------------------------------------------------------")
     st.markdown("## **`Addon Manager | 0.12`:**")
     st.markdown("- Added changelogs.\n - Date: *10/19/2024*")
