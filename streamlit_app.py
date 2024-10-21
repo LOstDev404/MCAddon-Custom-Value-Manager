@@ -5,7 +5,7 @@ import streamlit as st
 import uuid
 import json
 import shutil
-st.beta_set_page_config(
+st.set_page_config(
     page_title="MCAddon Manager"
 )
 def generate_uuids():
