@@ -92,7 +92,7 @@ if main_option == 'Random Item Skyblock':
         delay = st.number_input('How many seconds delay do you want?:', min_value=1, step=1)
 
         if st.button('Get download link'):
-            source_directory = 'RIS'
+            source_directory = 'Packs/LOstDev404/RandomItemSkyblock'
             if ris_option == 'Normal':
                 output_file = f'Random Item Skyblock {delay} Seconds.mcaddon'
                 is_void_gen = False
