@@ -158,7 +158,7 @@ def upload_to_fileio(file_path):
     return response_data.get('link')
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager')
+st.title('MCADDON Custom Value Manager `Version: 0.13')
 st.write('Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '-Changelogs-'])
@@ -193,11 +193,11 @@ if main_option == 'Random Item Skyblock':
 
 
 if main_option == '-Changelogs-':
-    st.markdown("## **`Addon Manager | 0.14`:**")
+    st.markdown("## **`Addon Manager | 0.13`:**")
     st.markdown("- Added bundles and colored bundles as receivable items on Random Item Skyblock.\n - Added the option for users to modify the chance of receiving certain items on Random Item Skyblock.\n  - Date: *10/23/2024*")
     st.write("---")
-    st.markdown("## **`Addon Manager | 0.13`:**")
+    st.markdown("## **`Addon Manager | 0.12`:**")
     st.markdown("- Fixed a formatting issue in Random Item Skybock's 'manifest.json' (in the pack description) that was causing the pack to not work on realms.\n - Renamed 'RIS' to 'RandomItemSkyblock' and moved it to 'Packs/LOstDev404/RandomItemSkyblock'.\n - Made the web icon have MCAddon logo, and MCAddon Manager text.\n - Date: *10/20/2024*")
     st.write("---")
-    st.markdown("## **`Addon Manager | 0.12`:**")
+    st.markdown("## **`Addon Manager | 0.11`:**")
     st.markdown("- Added changelogs.\n - Date: *10/19/2024*")
