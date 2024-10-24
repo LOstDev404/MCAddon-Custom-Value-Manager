@@ -69,5 +69,4 @@ execute at @s[scores={random=67}] run give @s copper_door
 execute at @s[scores={random=68}] run give @s copper_grate
 execute at @s[scores={random=69}] run give @s copper_trapdoor
 execute at @s[scores={random=70}] run give @s chiseled_copper
-
-scoreboard players random @s random 1 1246
+function randomize

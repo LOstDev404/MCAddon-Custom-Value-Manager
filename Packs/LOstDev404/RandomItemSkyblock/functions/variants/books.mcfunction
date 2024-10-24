@@ -99,5 +99,4 @@ execute at @s[scores={random=97}] run structure load books:Sharpness1 ~ ~ ~
 execute at @s[scores={random=98}] run structure load books:Sharpness2 ~ ~ ~
 execute at @s[scores={random=99}] run structure load books:Sharpness3 ~ ~ ~
 execute at @s[scores={random=100}] run structure load books:Sharpness4 ~ ~ ~
-
-scoreboard players random @s random 1 1246
+function randomize

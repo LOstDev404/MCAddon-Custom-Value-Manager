@@ -137,3 +137,4 @@ execute at @s[scores={random=135}] run give @s lingering_potion 1 43
 execute at @s[scores={random=136}] run give @s lingering_potion 1 44
 execute at @s[scores={random=137}] run give @s lingering_potion 1 45
 execute at @s[scores={random=138}] run give @s lingering_potion 1 46
+function randomize

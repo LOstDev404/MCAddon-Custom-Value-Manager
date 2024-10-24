@@ -8,7 +8,67 @@ import shutil
 st.set_page_config(
     page_title="MCAddon Manager",
     page_icon="mcaddon-logo.ico"
+    
 )
+def customize(mob_eggs, copper, potions, arrows, enchantment_books, source_directory, delay, is_void_gen, output_file, customized):
+    backup_randompick_path = 'Packs/LOstDev404/RandomItemSkyblock/functions/randompick.mcfunction_backup'
+    backup_randomize_path = 'Packs/LOstDev404/RandomItemSkyblock/functions/randomize.mcfunction_backup'
+
+    shutil.copyfile('Packs/LOstDev404/RandomItemSkyblock/functions/randompick.mcfunction', backup_randompick_path)
+    shutil.copyfile('Packs/LOstDev404/RandomItemSkyblock/functions/randomize.mcfunction', backup_randomize_path)
+    randompick_path = 'Packs/LOstDev404/RandomItemSkyblock/functions/randompick.mcfunction'
+    with open(randompick_path, 'r') as f:
+        randompick_data = f.read()
+        current_number = 1103
+    for _ in range(mob_eggs):
+        randompick_data += f"\nexecute as @s[scores={{random={current_number}}}] run function variants/runeggs"
+        current_number += 1
+    for _ in range(copper):
+        randompick_data += f"\nexecute as @s[scores={{random={current_number}}}] run function variants/runcopper"
+        current_number += 1
+    for _ in range(potions):
+        randompick_data += f"\nexecute as @s[scores={{random={current_number}}}] run function variants/runpotions"
+        current_number += 1
+    for _ in range(arrows):
+        randompick_data += f"\nexecute as @s[scores={{random={current_number}}}] run function variants/runarrows"
+        current_number += 1
+    for _ in range(enchantment_books):
+        randompick_data += f"\nexecute as @s[scores={{random={current_number}}}] run function variants/runbooks"
+        current_number += 1
+    with open(randompick_path, 'w') as f:
+        f.write(randompick_data)
+    randomize_path = 'Packs/LOstDev404/RandomItemSkyblock/functions/randomize.mcfunction'
+    with open(randomize_path, 'r') as f:
+        randomize_data = f.read()
+    randomize_data = randomize_data.replace('itemamount', str(current_number))
+    with open(randomize_path, 'w') as f:
+        f.write(randomize_data)
+    generate_mcaddon(source_directory, delay, is_void_gen, output_file, customized)
+
+    shutil.copyfile(backup_randompick_path, 'Packs/LOstDev404/RandomItemSkyblock/functions/randompick.mcfunction')
+    shutil.copyfile(backup_randomize_path, 'Packs/LOstDev404/RandomItemSkyblock/functions/randomize.mcfunction')
+    os.remove(backup_randompick_path)
+    os.remove(backup_randomize_path)
+
+def generate_mcaddon(source_directory, delay, is_void_gen, output_file, customized):
+    original_manifest_data, original_tick_data, original_timer_data = modify_files_with_delay(source_directory, delay, is_void_gen)
+
+    dimensions_path = os.path.join(source_directory, 'dimensions')
+    if is_void_gen and os.path.exists(dimensions_path):
+        shutil.move(dimensions_path, dimensions_path + '_disabled')
+    elif not is_void_gen and os.path.exists(dimensions_path + '_disabled'):
+        shutil.move(dimensions_path + '_disabled', dimensions_path)
+
+    zip_files_to_mcaddon(source_directory, output_file)
+    download_link = upload_to_fileio(output_file)
+    st.success(f'Download link: {download_link}')
+
+    revert_files(source_directory, original_manifest_data, original_tick_data, original_timer_data)
+
+    if os.path.exists(dimensions_path + '_disabled'):
+        shutil.move(dimensions_path + '_disabled', dimensions_path)
+
+    os.remove(output_file)
 def generate_uuids():
     return str(uuid.uuid4()), str(uuid.uuid4())
 
@@ -23,16 +83,30 @@ def modify_files_with_delay(source_dir, delay, is_void_gen):
     original_manifest_data = manifest_data
     
     if is_void_gen:
-        modified_manifest_data = manifest_data.replace(
-            'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.2'
-        ).replace(
+        if customized:
+            modified_manifest_data = manifest_data.replace(
+            'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.3 | Customized'
+            ).replace(
+            'packdescription', '§l§dNo Void Gen Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+            )
+        else:   
+            modified_manifest_data = manifest_data.replace(
+                'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen Beta 0.3'
+            ).replace(
             'packdescription', '§l§dNo Void Gen §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstartnvg'
     else:
-        modified_manifest_data = manifest_data.replace(
-            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.1'
-        ).replace(
+        if customized:
+            modified_manifest_data = manifest_data.replace(
+            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.2 | Customized'
+            ).replace(
+                    'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+        )
+        else:
+            modified_manifest_data = manifest_data.replace(
+            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.2'
+            ).replace(
             'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstart'
@@ -85,15 +159,23 @@ def upload_to_fileio(file_path):
 #---------------------------------------- UI Starts Here ----------------------------------------
 
 st.title('MCADDON Custom Value Manager')
-st.write('**Made by `LOstDev404`**')
+st.write('Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '-Changelogs-'])
 
 if main_option == 'Random Item Skyblock':
+    delay = st.number_input('How many seconds delay do you want?:', min_value=1, step=1)
     ris_option = st.selectbox('Choose a version:', ['Normal', 'No Void Gen (Beta)'])
     if ris_option:
-        delay = st.number_input('How many seconds delay do you want?:', min_value=1, step=1)
-
+        customized = st.checkbox('Customize further')
+        if customized:
+            st.warning("Don't Change these values if you don't know what you're doing!")
+            mob_eggs = st.number_input('How much `mob egg` receive chance do you want?:', min_value=1, step=1, value=40)
+            copper = st.number_input('How much `copper` receive chance do you want?:', min_value=1, step=1, value=16)
+            potions = st.number_input('How much `potion` receive chance do you want?:', min_value=1, step=1, value=6)
+            arrows = st.number_input('How much `tipped arrow` receive chance do you want?:', min_value=1, step=1, value=4)
+            enchantment_books = st.number_input('How much `enchantment book` receive chance do you want?:', min_value=1, step=1, value=2)
+            
         if st.button('Get download link'):
             source_directory = 'Packs/LOstDev404/RandomItemSkyblock'
             if ris_option == 'Normal':
@@ -102,29 +184,20 @@ if main_option == 'Random Item Skyblock':
             elif ris_option == 'No Void Gen (Beta)':
                 output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen Beta 0.2.mcaddon'
                 is_void_gen = True
-
-            original_manifest_data, original_tick_data, original_timer_data = modify_files_with_delay(source_directory, delay, is_void_gen)
-
-            dimensions_path = os.path.join(source_directory, 'dimensions')
-            if is_void_gen and os.path.exists(dimensions_path):
-                shutil.move(dimensions_path, dimensions_path + '_disabled')
-            elif not is_void_gen and os.path.exists(dimensions_path + '_disabled'):
-                shutil.move(dimensions_path + '_disabled', dimensions_path)
-
-            zip_files_to_mcaddon(source_directory, output_file)
-            download_link = upload_to_fileio(output_file)
-            st.success(f'Download link: {download_link}')
-
-            revert_files(source_directory, original_manifest_data, original_tick_data, original_timer_data)
+            if customized:
+                customize(mob_eggs, copper, potions, arrows, enchantment_books, source_directory, delay, is_void_gen, output_file, customized)
+            if not customized:
+                generate_mcaddon(source_directory, delay, is_void_gen, output_file, customized)
             
-            if os.path.exists(dimensions_path + '_disabled'):
-                shutil.move(dimensions_path + '_disabled', dimensions_path)
 
-            os.remove(output_file)
+
 
 if main_option == '-Changelogs-':
+    st.markdown("## **`Addon Manager | 0.14`:**")
+    st.markdown("- Added bundles and colored bundles as receivable items on Random Item Skyblock.\n - Added the option for users to modify the chance of receiving certain items on Random Item Skyblock.\n  - Date: *10/23/2024*")
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.13`:**")
     st.markdown("- Fixed a formatting issue in Random Item Skybock's 'manifest.json' (in the pack description) that was causing the pack to not work on realms.\n - Renamed 'RIS' to 'RandomItemSkyblock' and moved it to 'Packs/LOstDev404/RandomItemSkyblock'.\n - Made the web icon have MCAddon logo, and MCAddon Manager text.\n - Date: *10/20/2024*")
-    st.write("--------------------------------------------------------------------------")
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.12`:**")
     st.markdown("- Added changelogs.\n - Date: *10/19/2024*")

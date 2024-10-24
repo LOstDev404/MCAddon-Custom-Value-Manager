@@ -1,4 +1,4 @@
-scoreboard players random @s random 1 80
+scoreboard players random @s random 1 79
 execute at @s[scores={random=1}] run give @s allay_spawn_egg
 execute at @s[scores={random=2}] run give @s armadillo_spawn_egg
 execute at @s[scores={random=3}] run give @s axolotl_spawn_egg
@@ -78,3 +78,4 @@ execute at @s[scores={random=76}] run give @s zombie_spawn_egg
 execute at @s[scores={random=77}] run give @s zombie_pigman_spawn_egg
 execute at @s[scores={random=78}] run give @s zombie_horse_spawn_egg
 execute at @s[scores={random=79}] run give @s zoglin_spawn_egg
+function randomize
