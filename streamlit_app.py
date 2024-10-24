@@ -10,7 +10,7 @@ st.set_page_config(
     page_icon="mcaddon-logo.ico"
     
 )
-def customize(mob_eggs, copper, potions, arrows, enchantment_books, source_directory, delay, is_void_gen, output_file, customized):
+def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_directory, delay, is_void_gen, output_file, customized):
     backup_randompick_path = 'Packs/LOstDev404/RandomItemSkyblock/functions/randompick.mcfunction_backup'
     backup_randomize_path = 'Packs/LOstDev404/RandomItemSkyblock/functions/randomize.mcfunction_backup'
 
@@ -184,15 +184,20 @@ if main_option == 'Random Item Skyblock':
             elif ris_option == 'No Void Gen (Beta)':
                 output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen Beta 0.2.mcaddon'
                 is_void_gen = True
-            if customized:
-                customize(mob_eggs, copper, potions, arrows, enchantment_books, source_directory, delay, is_void_gen, output_file, customized)
             if not customized:
-                generate_mcaddon(source_directory, delay, is_void_gen, output_file, customized)
+                mob_eggs = 40
+                copper = 16
+                potions = 6
+                arrows = 4
+                enchantment_books = 2
+
+            make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_directory, delay, is_void_gen, output_file, customized)
             
-
-
-
 if main_option == '-Changelogs-':
+    
+    st.markdown("## **`Addon Manager | 0.14`:**")
+    st.markdown("- Patched a bug causing no 'variants' to be added if the user didn't check the 'Customized futher' checkmark.\n - Date: *10/24/2024*")
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.13`:**")
     st.markdown("- Added bundles and colored bundles as receivable items on Random Item Skyblock.\n - Added the option for users to modify the chance of receiving certain items on Random Item Skyblock.\n  - Date: *10/23/2024*")
     st.write("---")
