@@ -158,7 +158,7 @@ def upload_to_fileio(file_path):
     return response_data.get('link')
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager `Version: 0.13')
+st.title('MCADDON Custom Value Manager `Version: 0.13`')
 st.write('Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '-Changelogs-'])
