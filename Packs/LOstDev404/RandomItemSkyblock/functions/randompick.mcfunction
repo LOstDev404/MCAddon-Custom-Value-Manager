@@ -385,7 +385,6 @@ execute at @s[scores={random=itemnumber}] run give @s glow_ink_sac
 execute at @s[scores={random=itemnumber}] run give @s glow_lichen
 execute at @s[scores={random=itemnumber}] run give @s glowstone
 execute at @s[scores={random=itemnumber}] run give @s glowstone_dust
-execute at @s[scores={random=itemnumber}] run give @s goat_horn
 execute at @s[scores={random=itemnumber}] run give @s gold_block
 execute at @s[scores={random=itemnumber}] run give @s gold_ingot
 execute at @s[scores={random=itemnumber}] run give @s gold_nugget
@@ -1109,3 +1108,11 @@ execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 6
 execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 7
 execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 8
 execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 9
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 0
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 1
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 2
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 3
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 4
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 5
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 6
+execute at @s[scores={random=itemnumber}] run give @s goat_horn 1 7
