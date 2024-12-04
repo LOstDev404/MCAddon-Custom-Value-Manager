@@ -1040,6 +1040,55 @@ execute at @s[scores={random=itemnumber}] run give @s yellow_concrete_powder
 execute at @s[scores={random=itemnumber}] run give @s yellow_concrete
 execute at @s[scores={random=itemnumber}] run give @s yellow_carpet
 execute at @s[scores={random=itemnumber}] run give @s yellow_candle
+execute at @s[scores={random=itemnumber}] run give @s bundle
+execute at @s[scores={random=itemnumber}] run give @s black_bundle
+execute at @s[scores={random=itemnumber}] run give @s blue_bundle
+execute at @s[scores={random=itemnumber}] run give @s brown_bundle
+execute at @s[scores={random=itemnumber}] run give @s cyan_bundle
+execute at @s[scores={random=itemnumber}] run give @s gray_bundle
+execute at @s[scores={random=itemnumber}] run give @s green_bundle
+execute at @s[scores={random=itemnumber}] run give @s light_blue_bundle
+execute at @s[scores={random=itemnumber}] run give @s light_gray_bundle
+execute at @s[scores={random=itemnumber}] run give @s lime_bundle
+execute at @s[scores={random=itemnumber}] run give @s magenta_bundle
+execute at @s[scores={random=itemnumber}] run give @s orange_bundle
+execute at @s[scores={random=itemnumber}] run give @s pink_bundle
+execute at @s[scores={random=itemnumber}] run give @s purple_bundle
+execute at @s[scores={random=itemnumber}] run give @s red_bundle
+execute at @s[scores={random=itemnumber}] run give @s white_bundle
+execute at @s[scores={random=itemnumber}] run give @s yellow_bundle
+execute at @s[scores={random=itemnumber}] run give @s stripped_pale_oak_log
+execute at @s[scores={random=itemnumber}] run give @s stripped_pale_oak_wood
+execute at @s[scores={random=itemnumber}] run give @s pale_hanging_moss
+execute at @s[scores={random=itemnumber}] run give @s pale_moss_block
+execute at @s[scores={random=itemnumber}] run give @s pale_moss_carpet
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_boat
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_button
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_chest_boat
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_door
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_fence
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_fence_gate
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_hanging_sign
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_leaves
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_log
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_planks
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_pressure_plate
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_sapling
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_sign
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_slab
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_stairs
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_trapdoor
+execute at @s[scores={random=itemnumber}] run give @s pale_oak_wood
+execute at @s[scores={random=itemnumber}] run give @s creaking_heart
+execute at @s[scores={random=itemnumber}] run give @s resin_block
+execute at @s[scores={random=itemnumber}] run give @s resin_brick
+execute at @s[scores={random=itemnumber}] run give @s resin_brick_slab
+execute at @s[scores={random=itemnumber}] run give @s resin_brick_stairs
+execute at @s[scores={random=itemnumber}] run give @s resin_brick_wall
+execute at @s[scores={random=itemnumber}] run give @s resin_bricks
+execute at @s[scores={random=itemnumber}] run give @s resin_clump
+execute at @s[scores={random=itemnumber}] run give @s open_eyeblossom
+execute at @s[scores={random=itemnumber}] run give @s closed_eyeblossom
 execute at @s[scores={random=itemnumber}] run give @s bed 1 1
 execute at @s[scores={random=itemnumber}] run give @s bed 1 2
 execute at @s[scores={random=itemnumber}] run give @s bed 1 3
@@ -1081,23 +1130,6 @@ execute at @s[scores={random=itemnumber}] run give @s skull 1 2
 execute at @s[scores={random=itemnumber}] run give @s skull 1 3
 execute at @s[scores={random=itemnumber}] run give @s skull 1 4
 execute at @s[scores={random=itemnumber}] run give @s skull 1 5
-execute at @s[scores={random=itemnumber}] run give @s bundle
-execute at @s[scores={random=itemnumber}] run give @s black_bundle
-execute at @s[scores={random=itemnumber}] run give @s blue_bundle
-execute at @s[scores={random=itemnumber}] run give @s brown_bundle
-execute at @s[scores={random=itemnumber}] run give @s cyan_bundle
-execute at @s[scores={random=itemnumber}] run give @s gray_bundle
-execute at @s[scores={random=itemnumber}] run give @s green_bundle
-execute at @s[scores={random=itemnumber}] run give @s light_blue_bundle
-execute at @s[scores={random=itemnumber}] run give @s light_gray_bundle
-execute at @s[scores={random=itemnumber}] run give @s lime_bundle
-execute at @s[scores={random=itemnumber}] run give @s magenta_bundle
-execute at @s[scores={random=itemnumber}] run give @s orange_bundle
-execute at @s[scores={random=itemnumber}] run give @s pink_bundle
-execute at @s[scores={random=itemnumber}] run give @s purple_bundle
-execute at @s[scores={random=itemnumber}] run give @s red_bundle
-execute at @s[scores={random=itemnumber}] run give @s white_bundle
-execute at @s[scores={random=itemnumber}] run give @s yellow_bundle
 execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 0
 execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 1
 execute at @s[scores={random=itemnumber}] run give @s suspicious_stew 1 2
