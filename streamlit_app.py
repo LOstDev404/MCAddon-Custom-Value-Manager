@@ -63,13 +63,13 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_di
             modified_manifest_data = manifest_data.replace(
             'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.1 | Customized'
             ).replace(
-            'packdescription', '§l§dNo Void Gen Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dNo Void Gen Version 1.1 Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
             )
         else:   
             modified_manifest_data = manifest_data.replace(
                 'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.1'
             ).replace(
-            'packdescription', '§l§dNo Void Gen §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dNo Void Gen Version 1.1 §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstartnvg'
     else:
@@ -77,13 +77,13 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_di
             modified_manifest_data = manifest_data.replace(
             'packname', f'Random Item Skyblock ({delay} Seconds) | 1.4 | Customized'
             ).replace(
-                    'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dVersion 1.4 Customized §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         else:
             modified_manifest_data = manifest_data.replace(
             'packname', f'Random Item Skyblock ({delay} Seconds) | 1.4'
             ).replace(
-            'packdescription', '§l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dVersion 1.4 §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstart'
 
@@ -147,7 +147,7 @@ def upload_to_fileio(file_path):
     return response_data.get('link')
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager `Version: 0.17`')
+st.title('MCADDON Custom Value Manager `Version: 0.18`')
 st.write('Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '-Changelogs-'])
@@ -184,6 +184,9 @@ if main_option == 'Random Item Skyblock':
                          , delay, is_void_gen, output_file, customized)
             
 if main_option == '-Changelogs-':
+    st.markdown("## **`Addon Manager | 0.18`:**")
+    st.markdown("- Changed pack descriptions to say the pack version at the start.\n - Date: *12/06/2024*")
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.17`:**")
     st.markdown("- Added the new items added in 1.21.50 (Such as Pale Wood, Resin, and the Creaking)\n - Date: *12/03/2024*")
     st.write("---")
