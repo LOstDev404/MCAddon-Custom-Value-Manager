@@ -185,7 +185,7 @@ if main_option == 'Random Item Skyblock':
             
 if main_option == '-Changelogs-':
     st.markdown("## **`Addon Manager | 0.18`:**")
-    st.markdown("- Changed pack descriptions to say the pack version at the start.\n - Date: *12/06/2024*")
+    st.markdown("- Changed pack descriptions to say the pack version at the start.\n - Made the 'Version' text in Minecraft display the compiler version.\n - Date: *12/06/2024*")
     st.write("---")
     st.markdown("## **`Addon Manager | 0.17`:**")
     st.markdown("- Added the new items added in 1.21.50 (Such as Pale Wood, Resin, and the Creaking)\n - Date: *12/03/2024*")
