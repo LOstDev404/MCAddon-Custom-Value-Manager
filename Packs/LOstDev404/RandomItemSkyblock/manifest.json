@@ -14,21 +14,13 @@
 			0
 		],
 		"uuid": "uuid1",
-		"version": [
-			0,
-			18,
-			0
-		]
+		"version": [packversion]
 	},
 	"modules": [
 		{
 			"type": "data",
 			"uuid": "uuid2",
-			"version": [
-				0,
-				18,
-				0
-			]
+			"version": [packversion]
 		}
 	]
 }
