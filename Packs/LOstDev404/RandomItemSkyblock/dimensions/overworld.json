@@ -7,7 +7,7 @@
         "components": {
             "minecraft:dimension_bounds": {
                 "min": 0,
-                "max": 320
+                "max": 256
             },
             "minecraft:generation": {
                 "generator_type": "void"
