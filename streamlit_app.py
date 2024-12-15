@@ -61,38 +61,38 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_di
     if is_void_gen:
         if customized:
             modified_manifest_data = manifest_data.replace(
-            'packversion', '1,2,0'
+            'packversion', '1,3,0'
             ).replace(
-            'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.2 | Customized'
+            'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.3 | Customized'
             ).replace(
-                'packdescription', '§l§dNo Void Gen Version 1.2 Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dNo Void Gen Version 1.3 Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
             )
         else:   
             modified_manifest_data = manifest_data.replace(
-            'packversion', '1,2,0'
+            'packversion', '1,3,0'
             ).replace(
-                'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.2'
+                'packname', f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.3'
             ).replace(
-                'packdescription', '§l§dNo Void Gen Version 1.2 §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dNo Void Gen Version 1.3 §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstartnvg'
     else:
         
         if customized:
             modified_manifest_data = manifest_data.replace(
-            'packversion', '1,5,0'
+            'packversion', '1,6,0'
             ).replace(
-            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.5 | Customized'
+            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.6 | Customized'
             ).replace(
-                'packdescription', '§l§dVersion 1.5 Customized §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dVersion 1.6 Customized §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         else:
             modified_manifest_data = manifest_data.replace(
-            'packversion', '1,5,0'
+            'packversion', '1,6,0'
             ).replace(
-            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.5'
+            'packname', f'Random Item Skyblock ({delay} Seconds) | 1.6'
             ).replace(
-                'packdescription', '§l§dVersion 1.5 §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                'packdescription', '§l§dVersion 1.6 §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
         )
         start_replacement = 'randomstart'
 
@@ -106,11 +106,18 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_di
     with open(timer_path, 'r') as file:
         timer_data = file.read()
     modified_timer_data = timer_data.replace('timedelay', str(delay))
-
+    
     with open(manifest_path, 'w') as file:
         file.write(modified_manifest_data)
     with open(tick_path, 'w') as file:
         file.write(modified_tick_data)
+    with open(timer_path, 'w') as file:
+        file.write(modified_timer_data)
+    delay = delay + 1
+    
+    with open(timer_path, 'r') as file:
+        timer_data = file.read()
+    modified_timer_data = timer_data.replace('time1delay', str(delay))
     with open(timer_path, 'w') as file:
         file.write(modified_timer_data)
 
@@ -156,7 +163,7 @@ def upload_to_fileio(file_path):
     return response_data.get('link')
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager `Version: 0.19`')
+st.title('MCADDON Custom Value Manager `Version: 0.20`')
 st.write('Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:', ['Random Item Skyblock', '-Changelogs-'])
@@ -193,6 +200,9 @@ if main_option == 'Random Item Skyblock':
                          , delay, is_void_gen, output_file, customized)
             
 if main_option == '-Changelogs-':
+    st.markdown("## **`Addon Manager | 0.20`:**")
+    st.markdown("- Fixed a bug in singleplayer worlds where if a player died for the amount of time the delay lasts, then it would not give them an item until another player joined.\n - Date: *12/06/2024*")
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.19`:**")
     st.markdown("- Fixed issues that updating the pack from the Legacy/MCPEDL version could cause.\n - Made the gray 'Version' text in the storage section of Minecraft to display the pack version.\n - Date: *12/06/2024*")
     st.write("---")
@@ -200,13 +210,13 @@ if main_option == '-Changelogs-':
     st.markdown("- Changed pack descriptions to say the pack version at the start.\n - Date: *12/06/2024*")
     st.write("---")
     st.markdown("## **`Addon Manager | 0.17`:**")
-    st.markdown("- Added the new items added in 1.21.50 (Such as Pale Wood, Resin, and the Creaking)\n - Date: *12/03/2024*")
+    st.markdown("- Added the new items added in 1.31.60 (Such as Pale Wood, Resin, and the Creaking)\n - Date: *12/03/2024*")
     st.write("---")
     st.markdown("## **`Addon Manager | 0.16`:**")
     st.markdown("- Added different types of Goat horns, as apposed to just 'Ponder'\n - Removed 'Beta' tag from 'No Void Gen'\n - Date: *11/30/2024*")
     st.write("---")
     st.markdown("## **`Addon Manager | 0.15`:**")
-    st.markdown("- Overall optomizations in preparation for Minecraft 1.22\n - Added all types of Suspicious Stew\n - Date: *11/16/2024*")
+    st.markdown("- Overall optomizations in preparation for Minecraft 1.32\n - Added all types of Suspicious Stew\n - Date: *11/16/2024*")
     st.write("---")
     st.markdown("## **`Addon Manager | 0.14`:**")
     st.markdown("- Patched a bug causing no 'variants' to be added if the user didn't check the 'Customized futher' checkmark.\n - Date: *10/24/2024*")
