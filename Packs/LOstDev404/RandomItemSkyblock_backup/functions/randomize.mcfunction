@@ -1,0 +1,1 @@
+scoreboard players random @a random 1 itemamount

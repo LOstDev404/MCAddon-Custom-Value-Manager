@@ -1,0 +1,26 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"LD404"
+		]
+	},
+	"header": {
+		"name": "packname",
+		"description": "packdescription",
+		"min_engine_version": [
+			1,
+			21,
+			0
+		],
+		"uuid": "uuid1",
+		"version": [packversion]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "uuid2",
+			"version": [packversion]
+		}
+	]
+}
