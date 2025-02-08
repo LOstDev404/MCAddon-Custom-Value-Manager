@@ -76,7 +76,6 @@ execute at @s[scores={random=74}] run give @s zombie_spawn_egg
 execute at @s[scores={random=75}] run give @s zombie_pigman_spawn_egg
 execute at @s[scores={random=76}] run give @s zombie_horse_spawn_egg
 execute at @s[scores={random=77}] run give @s zoglin_spawn_egg
-execute at @s[scores={random=78}] run give @s creaking_spawn_egg
+execute at @s[scores={random=78}] run give @s wither_spawn_egg
 execute at @s[scores={random=79}] run give @s ender_dragon_spawn_egg
-execute at @s[scores={random=80}] run give @s wither_spawn_egg
 function randomize
