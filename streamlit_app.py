@@ -137,8 +137,7 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
                 os.remove(dimensions_path)
 
     zip_files_to_mcaddon(source_dir, output_file)
-    download_link = upload_to_fileio(output_file)
-    st.success(f'Download link: {download_link}')
+    download_link = create_download(output_file)
 
     def deletebackup(backup_path):
         if os.path.exists(backup_path):
@@ -161,28 +160,43 @@ def generate_uuids():
 
 
 def zip_files_to_mcaddon(source_dir, output_filename):
-    with zipfile.ZipFile(output_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        for root, dirs, files in os.walk(source_dir):
-            for file in files:
-                file_path = os.path.join(root, file)
-                arcname = os.path.relpath(file_path,
-                                          os.path.dirname(source_dir))
-                zipf.write(file_path, arcname)
+    if not os.path.isdir(source_dir):
+        raise ValueError(f"The source directory '{source_dir}' does not exist.")
+
+    temp_zip_filename = output_filename + ".zip"
+
+    try:
+        with zipfile.ZipFile(temp_zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for root, dirs, files in os.walk(source_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    arcname = os.path.relpath(file_path, os.path.dirname(source_dir))
+                    zipf.write(file_path, arcname)
+        os.rename(temp_zip_filename, output_filename)
+
+    except Exception as e:
+        if os.path.exists(temp_zip_filename):
+            os.remove(temp_zip_filename)
+        raise e
+    
+def create_download(file_path):
+
+    with open(file_path, "rb") as file:
+        file_data = file.read()
+
+    st.success("File successfully generated!")
+    st.download_button(
+        label="Download",
+        data=file_data,
+        file_name=os.path.basename(file_path), 
+        mime="application/mcaddon"
+    )
 
 
-
-
-def upload_to_fileio(file_path):
-    st.error("Failed to upload to File.io")
-    #with open(file_path, 'rb') as file:
-        #response = requests.post('https://file.io', files={'file': file})
-    #response_data = response.json()
-    #return response_data.get('link')
 
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager `Version: 0.20`')
-st.error('This app is disfunctional until further notice, more information on the 404 Studios Discord.')
+st.title('MCADDON Custom Value Manager `Version: 0.21`')
 st.write(
     'Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
@@ -226,13 +240,13 @@ if main_option == 'Random Item Skyblock':
                 step=1,
                 value=2)
 
-        if st.button('Get download link'):
+        if st.button('Generate File'):
             source_dir = 'Packs/LOstDev404/RandomItemSkyblock'
             if ris_option == 'Normal':
-                output_file = f'Random Item Skyblock {delay} Seconds.zip'
+                output_file = f'Random Item Skyblock {delay} Seconds.mcaddon'
                 is_void_gen = False
             elif ris_option == 'No Void Gen':
-                output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen.zip'
+                output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen.mcaddon'
                 is_void_gen = True
             if not customized:
                 mob_eggs = 40
@@ -244,6 +258,11 @@ if main_option == 'Random Item Skyblock':
             make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_dir, delay, is_void_gen, output_file, customized)
 
 if main_option == '-Changelogs-':
+    st.markdown("## **`Addon Manager | 0.21`:**")
+    st.markdown(
+        "- Made file downloads go direclty through the app rather then file.io because file.io's API was no longer working.\n - Made minor modifications to the way the file is zipped to solve a bug.\n - Date: *02/08/2025*"
+    )
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.20`:**")
     st.markdown(
         "- Fixed a bug in singleplayer worlds where if a player died for the amount of time the delay lasts, then it would not give them an item until another player joined.\n - Date: *12/06/2024*"
