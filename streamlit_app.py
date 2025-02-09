@@ -7,8 +7,65 @@ import shutil
 
 st.set_page_config(page_title="MCAddon Manager", page_icon="mcaddon-logo.ico")
 
+def make_gravity(grid_size, output_file, source_dir, player_count):
 
-def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
+    if not isinstance(grid_size, int) or grid_size <= 0:
+        raise ValueError("Grid size must be a positive integer")
+
+    backup_path = f"{source_dir}_backup"
+
+    try:
+
+        if os.path.exists(source_dir):
+            shutil.copytree(source_dir, backup_path, dirs_exist_ok=True)
+
+        manifest_path = os.path.join(source_dir, "manifest.json")
+        uuid1, uuid2 = generate_uuids()
+
+        with open(manifest_path, "r") as f:
+            manifest_data = f.read()
+
+        modified_manifest = manifest_data \
+            .replace("uuid1", uuid1) \
+            .replace("uuid2", uuid2) \
+            .replace("gridsize", str(grid_size)) \
+            .replace("playercount", str(player_count))
+
+        with open(manifest_path, "w") as f:
+            f.write(modified_manifest)
+
+        commands = []
+        for row in range(grid_size):
+            for col in range(grid_size):
+                x_offset = col - (grid_size // 2)
+                z_offset = row - (grid_size // 2)
+                commands.append(
+                    f"execute at @a positioned ~{x_offset} ~ ~{z_offset} run function gravity1"
+                )
+                
+        func_path = 'Packs/LOstDev404/Gravity/functions/gravity2.mcfunction'
+        os.makedirs(os.path.dirname(func_path), exist_ok=True)
+
+        with open(func_path, "w") as f:
+            f.write("\n".join(commands))
+
+        zip_files_to_mcaddon(source_dir, output_file)
+        create_download(output_file)
+
+    finally:
+        if os.path.exists(backup_path):
+            if os.path.exists(source_dir):
+                shutil.rmtree(source_dir)
+            shutil.copytree(backup_path, source_dir)
+            shutil.rmtree(backup_path)
+        os.remove(output_file)
+
+
+
+
+
+
+def make_ris(mob_eggs, copper, potions, arrows, enchantment_books,
                  source_dir, delay, is_void_gen, output_file, customized):
     backup_path = 'Packs/LOstDev404/RandomItemSkyblock'
 
@@ -66,7 +123,7 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
                 f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.3 | Customized'
             ).replace(
                 'packdescription',
-                '§l§dNo Void Gen Version 1.3 Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                '§l§dNo Void Gen Version 1.3 Customized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOstDev404 / Grexzn'
             )
         else:
             modified_manifest_data = manifest_data.replace(
@@ -76,7 +133,7 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
                 f'Random Item Skyblock ({delay} Seconds) | No Void Gen 1.3'
             ).replace(
                 'packdescription',
-                '§l§dNo Void Gen Version 1.3 §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                '§l§dNo Void Gen Version 1.3 §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOstDev404 / Grexzn'
             )
         start_replacement = 'randomstartnvg'
     else:
@@ -88,7 +145,7 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
                 'packname', f'Random Item Skyblock ({delay} Seconds) | 1.6 | Customized'
             ).replace(
                 'packdescription',
-                '§l§dVersion 1.6 Customized §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                '§l§dVersion 1.6 Customized §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§dCustomized §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOstDev404 / Grexzn'
             )
         else:
             modified_manifest_data = manifest_data.replace(
@@ -97,7 +154,7 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
                 'packname', f'Random Item Skyblock ({delay} Seconds) | 1.6'
             ).replace(
                 'packdescription',
-                '§l§dVersion 1.6 §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOde404 / Grexzn'
+                '§l§dVersion 1.6 §f| §l§cDO NOT PUT ON PRE-EXISTING WORLDS! §f| §l§bInstructions: §r§fPut this on a §l§6new world §r§fduring world creation. §f| §l§bPack created by: §r§aLOstDev404 / Grexzn'
             )
         start_replacement = 'randomstart'
 
@@ -137,14 +194,9 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
                 os.remove(dimensions_path)
 
     zip_files_to_mcaddon(source_dir, output_file)
-    download_link = create_download(output_file)
+    create_download(output_file)
 
-    def deletebackup(backup_path):
-        if os.path.exists(backup_path):
-            if os.path.isdir(backup_path):
-                shutil.rmtree(backup_path)
-            else:
-                os.remove(backup_path)
+
 
     deletebackup(backup_path)
     shutil.copytree('Packs/LOstDev404/RandomItemSkyblock_backup',
@@ -158,7 +210,13 @@ def make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books,
 def generate_uuids():
     return str(uuid.uuid4()), str(uuid.uuid4())
 
-
+def deletebackup(backup_path):
+    if os.path.exists(backup_path):
+        if os.path.isdir(backup_path):
+            shutil.rmtree(backup_path)
+        else:
+            os.remove(backup_path)
+            
 def zip_files_to_mcaddon(source_dir, output_filename):
     if not os.path.isdir(source_dir):
         raise ValueError(f"The source directory '{source_dir}' does not exist.")
@@ -196,12 +254,12 @@ def create_download(file_path):
 
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager `Version: 0.21`')
+st.title('MCADDON Custom Value Manager `Version: 0.22`')
 st.write(
     'Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:',
-                           ['Random Item Skyblock', '-Changelogs-'])
+                           ['Random Item Skyblock', 'Gravity', '-Changelogs-'])
 
 if main_option == 'Random Item Skyblock':
     delay = st.number_input('How many seconds delay do you want?:',
@@ -243,10 +301,10 @@ if main_option == 'Random Item Skyblock':
         if st.button('Generate File'):
             source_dir = 'Packs/LOstDev404/RandomItemSkyblock'
             if ris_option == 'Normal':
-                output_file = f'Random Item Skyblock {delay} Seconds.mcaddon'
+                output_file = f'Random_Item_Skyblock_{delay}_Seconds.mcaddon'
                 is_void_gen = False
             elif ris_option == 'No Void Gen':
-                output_file = f'Random Item Skyblock {delay} Seconds | No Void Gen.mcaddon'
+                output_file = f'Random_Item_Skyblock_{delay} Seconds_No_Void_Gen.mcaddon'
                 is_void_gen = True
             if not customized:
                 mob_eggs = 40
@@ -255,9 +313,32 @@ if main_option == 'Random Item Skyblock':
                 arrows = 4
                 enchantment_books = 2
 
-            make_mcaddon(mob_eggs, copper, potions, arrows, enchantment_books, source_dir, delay, is_void_gen, output_file, customized)
+            make_ris(mob_eggs, copper, potions, arrows, enchantment_books, source_dir, delay, is_void_gen, output_file, customized)
+if main_option =='Gravity':
+    grid_size = st.number_input('How big of a grid around the player should gravity be active?:',
+        min_value=1,
+        step=1,value=5, max_value=15)
+    player_count = int(10000 / (grid_size ** 2 * 42))
 
+    st.write(f'Max player count: {player_count}')
+    function_commands = int(grid_size) ** 2 * 42
+    st.write(f'(Function commands: {function_commands})')
+    
+    if st.button('Generate File'):
+        source_dir = 'Packs/LOstDev404/Gravity'
+        output_file = f'Gravity_Grid_{grid_size}_{player_count}_Players.mcaddon'
+        make_gravity(grid_size, output_file, source_dir, player_count)
+        
+
+
+
+    
 if main_option == '-Changelogs-':
+    st.markdown("## **`Addon Manager | 0.22`:**")
+    st.markdown(
+        "- Added the Gravity Add-on.\n - Date: *02/09/2025*"
+    )
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.21`:**")
     st.markdown(
         "- Made file downloads go direclty through the app rather then file.io because file.io's API was no longer working.\n - Made minor modifications to the way the file is zipped to solve a bug.\n - Date: *02/08/2025*"
