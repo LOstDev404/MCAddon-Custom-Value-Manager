@@ -287,7 +287,7 @@ st.write(
     'Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
 main_option = st.selectbox('Choose a pack / option:',
-                           ['Random Item Skyblock', 'Gravity', '-Changelogs-'])
+                           ['Random Item Skyblock', 'Block Gravity', '-Changelogs-'])
 
 if main_option == 'Random Item Skyblock':
     delay = st.number_input('How many seconds delay do you want?:',
@@ -342,7 +342,7 @@ if main_option == 'Random Item Skyblock':
                 enchantment_books = 2
 
             make_ris(mob_eggs, copper, potions, arrows, enchantment_books, source_dir, delay, is_void_gen, output_file, customized)
-if main_option =='Gravity':
+if main_option =='Block Gravity':
     grid_size = st.number_input('How big of a grid around the player should gravity be active?:',min_value=1,step=1,value=5)
     up_grid = st.number_input('How many blocks above the player should gravity be active?:',min_value=1,step=1,value=20)
     down_grid = st.number_input('How many blocks below the player should gravity be active?:',min_value=1,step=1,value=20)
