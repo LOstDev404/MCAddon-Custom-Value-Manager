@@ -1,14 +1,16 @@
 import os
 import zipfile
+from numpy import version
 import requests
 import streamlit as st
 import uuid
 import shutil
+import random
 
 st.set_page_config(page_title="MCAddon Manager", page_icon="mcaddon-logo.ico")
 
-def make_gravity(grid_size, output_file, source_dir, player_count):
-
+def make_gravity(grid_size, output_file, source_dir, player_count, up_grid, down_grid):
+    version_id = random.randint(1000, 9999)
     if not isinstance(grid_size, int) or grid_size <= 0:
         raise ValueError("Grid size must be a positive integer")
 
@@ -21,18 +23,28 @@ def make_gravity(grid_size, output_file, source_dir, player_count):
 
         manifest_path = os.path.join(source_dir, "manifest.json")
         uuid1, uuid2 = generate_uuids()
-
+        
+        
         with open(manifest_path, "r") as f:
             manifest_data = f.read()
 
+        modded_height = (down_grid != 20 or up_grid != 20)
         modified_manifest = manifest_data \
             .replace("uuid1", uuid1) \
             .replace("uuid2", uuid2) \
             .replace("gridsize", str(grid_size)) \
             .replace("playercount", str(player_count))
 
+        if modded_height:
+            modified_manifest = modified_manifest.replace("mh", f" | Height: {up_grid} Up, {down_grid} Down")
+        else:
+            modified_manifest = modified_manifest.replace("mh", " | Height: 20 Up, 20 Down (Default)")
+
         with open(manifest_path, "w") as f:
             f.write(modified_manifest)
+
+
+
 
         commands = []
         for row in range(grid_size):
@@ -40,28 +52,44 @@ def make_gravity(grid_size, output_file, source_dir, player_count):
                 x_offset = col - (grid_size // 2)
                 z_offset = row - (grid_size // 2)
                 commands.append(
-                    f"execute at @a positioned ~{x_offset} ~ ~{z_offset} run function gravity1"
+                    f"execute at @a positioned ~{x_offset} ~ ~{z_offset} run function gravity_{version_id}1"
                 )
                 
-        func_path = 'Packs/LOstDev404/Gravity/functions/gravity2.mcfunction'
+        func_path = f'Packs/LOstDev404/Gravity/functions/gravity_{version_id}2.mcfunction'
         os.makedirs(os.path.dirname(func_path), exist_ok=True)
 
         with open(func_path, "w") as f:
             f.write("\n".join(commands))
+        
+        tick_path = 'Packs/LOstDev404/Gravity/functions/tick.json'
+        
+        with open(tick_path, "r") as f:
+            tick_data = f.read()
+        modified_tick = tick_data \
+            .replace("id", str(version_id))
+        
+        with open(tick_path, "w") as f:
+            f.write(modified_tick)
+        
+        filename = f"Packs/LOstDev404/Gravity/functions/gravity_{version_id}1.mcfunction"
+        if not os.path.exists(filename):
+            with open(filename, "w") as file:
 
-        zip_files_to_mcaddon(source_dir, output_file)
-        create_download(output_file)
+                for i in range(-down_grid, up_grid):
+                    line = f"execute positioned ~ ~{i} ~ if block ~ ~-1 ~ air run clone ~ ~ ~ ~ ~ ~ ~ ~-1 ~ masked move\n"
+                    file.write(line)
+        
+        
 
     finally:
+        zip_files_to_mcaddon(source_dir, output_file)
+        create_download(output_file)
         if os.path.exists(backup_path):
             if os.path.exists(source_dir):
                 shutil.rmtree(source_dir)
             shutil.copytree(backup_path, source_dir)
             shutil.rmtree(backup_path)
         os.remove(output_file)
-
-
-
 
 
 
@@ -254,7 +282,7 @@ def create_download(file_path):
 
 #---------------------------------------- UI Starts Here ----------------------------------------
 
-st.title('MCADDON Custom Value Manager `Version: 0.22`')
+st.title('MCADDON Custom Value Manager `Version: 0.23`')
 st.write(
     'Contact `LOstDev404` on Discord for any bugs, questions, or suggestions.')
 
@@ -315,25 +343,34 @@ if main_option == 'Random Item Skyblock':
 
             make_ris(mob_eggs, copper, potions, arrows, enchantment_books, source_dir, delay, is_void_gen, output_file, customized)
 if main_option =='Gravity':
-    grid_size = st.number_input('How big of a grid around the player should gravity be active?:',
-        min_value=1,
-        step=1,value=5, max_value=15)
-    player_count = int(10000 / (grid_size ** 2 * 42))
+    grid_size = st.number_input('How big of a grid around the player should gravity be active?:',min_value=1,step=1,value=5)
+    up_grid = st.number_input('How many blocks above the player should gravity be active?:',min_value=1,step=1,value=20)
+    down_grid = st.number_input('How many blocks below the player should gravity be active?:',min_value=1,step=1,value=20)
+    up_down = down_grid + up_grid + 1
+    
+    player_count = int(10000 / (grid_size ** 2 * up_down))
 
     st.write(f'Max player count: {player_count}')
-    function_commands = int(grid_size) ** 2 * 42
-    st.write(f'(Function commands: {function_commands})')
+    function_commands = int(grid_size) ** 2 * up_down
+    st.write(f'(Function commands: {function_commands}/10000)')
+    if function_commands > 10000:
+        st.error('Having more than 10000 function commands will cause certain blocks to not have gravity.')
     
     if st.button('Generate File'):
         source_dir = 'Packs/LOstDev404/Gravity'
         output_file = f'Gravity_Grid_{grid_size}_{player_count}_Players.mcaddon'
-        make_gravity(grid_size, output_file, source_dir, player_count)
+        make_gravity(grid_size, output_file, source_dir, player_count, up_grid, down_grid)
         
 
 
 
     
 if main_option == '-Changelogs-':
+    st.markdown("## **`Addon Manager | 0.23`:**")
+    st.markdown(
+        "- Added height to grid customization for the Gravity Addon.\n - Made it possible to stack multiple of the Gravity addon on top of eachother (Althought it's recommended).\n - Date: *02/09/2025*"
+    )
+    st.write("---")
     st.markdown("## **`Addon Manager | 0.22`:**")
     st.markdown(
         "- Added the Gravity Add-on.\n - Date: *02/09/2025*"

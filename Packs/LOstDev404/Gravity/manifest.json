@@ -6,7 +6,7 @@
 		]
 	},
 	"header": {
-		"name": "Gravity | Grid size: gridsize",
+		"name": "Block Gravity | Grid size: gridsizemh",
 		"description": "§l§dVersion 1.1 §r§f| §l§fMinecraft but every block has §dGravity. §r§f| §l§3This version will work with §fplayercount §3player(s) §r§f| §l§bPack created by: §r§aLOstDev404 / Grexzn",
 		"min_engine_version": [
 			1,
